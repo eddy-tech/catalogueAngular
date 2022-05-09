@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="card">
+        <div class="card-head">Update du Produit</div>
+        <div class="card-body" *ngIf="currentProduct">
+            <form #f="ngForm" (ngSubmit)="onUpdateProduct(f.value)">
+            <div class="form-group">
+              <label class="control-label"> Desgination : </label>
+              <input
+                class="form-control"
+                type="text"
+                name="designation"
+                ngModel
+                [(ngModel)]="currentProduct.designation"
+              />
+            </div>
+            <div class="form-group">
+              <label class="control-label"> Prix : </label>
+              <input class="form-control" type="number" name="price" ngModel [(ngModel)]="currentProduct.price" />
+            </div>
+            <div class="form-group">
+              <label class="control-label"> Quantite : </label>
+              <input
+                class="form-control"
+                type="number"
+                name="quantity"
+                ngModel
+                [(ngModel)]="currentProduct.quantity"
+              />
+            </div>
+            <button class="btn btn-success" type="submit">Save</button>
+          </form>
+        </div>
+    </div>
+</div>

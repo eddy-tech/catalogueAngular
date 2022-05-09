@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-primary text-white">Liste des produits</div>
+    <div class="card-body">
+      <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="onChercher(f.value)">
+          <div class="form-control">
+            <label>Keyword : </label>
+            <input type="text" name="keyword" ngModel />
+            <button class="btn btn-primary" type="submit">
+              <span> Chercher </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card-body">
+      <table *ngIf="products" class="table table-striped">
+        <tr>
+          <th>ID</th>
+          <th>DESIGNATION</th>
+          <th>PRICE</th>
+          <th>QUANTITY</th>
+        </tr>
+        <tr *ngFor="let p of products._embedded.produits">
+          <td>{{ p.id }}</td>
+          <td>{{ p.designation }}</td>
+          <td>{{ p.price | number: "0.2" }}</td>
+          <td>{{ p.quantity }}</td>
+          <td>
+            <button
+              *ngIf="authService.isAdmin()"
+              class="btn btn-danger bg-danger"
+              type="button"
+              (click)="onDeleteProduct(p)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-success bg-success"
+              type="button"
+              (click)="onEditProduct(p)"
+            >
+              Edit Product
+            </button>
+          </td>
+        </tr>
+      </table>
+      <ul *ngIf="pages" class="pagination pagination-md">
+        <li
+          *ngFor="let p of pages; let i = index"
+          class="page-item clickable"
+          aria-current="page"
+          [ngClass]="i == currentPage ? 'active' : ''"
+        >
+          <a class="page-link" (click)="onPageProduct(i)">{{ i }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
